@@ -59,12 +59,16 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
   
   compressedVec.resize(compressedSize);
   
-  return std::move(compressedVec);
+  return compressedVec;
 }
 
 @interface ViewController ()
 
 @property (nonatomic, copy) NSData *lz4CompressedData;
+
+@property (nonatomic, retain) NSMutableData *lz4DecompressedData;
+
+@property (nonatomic, assign) int secondByteCounter;
 
 @end
 
@@ -78,14 +82,14 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
   
   [NSTimer scheduledTimerWithTimeInterval:1.0
                                    target:self
-                                 selector:@selector(benchmarkTimer)
+                                 selector:@selector(benchmarkInitTimer)
                                  userInfo:nil
                                   repeats:NO];
 }
 
 
-- (void) benchmarkTimer {
-  NSLog(@"running benchmarkTimer");
+- (void) benchmarkInitTimer {
+  NSLog(@"running benchmarkInitTimer");
   
   // Compress
 
@@ -109,7 +113,73 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
   
   self.lz4CompressedData = [NSData dataWithBytes:compressedVec.data() length:compressedVec.size()];
   
+  self.lz4DecompressedData = [NSMutableData dataWithLength:unencodedData.length];
+  
+  // Schedule callback at 30 FPS
+  
+//  float interval = 1.0/30.0;
+//  float interval = 1.0/45.0;
+//  float interval = 1.0/59.0;
+//  float interval = 1.0/60.0;
+  
+//  float interval = 1.0/120.0;
+//  float interval = 1.0/240.0;
+  
+//  float interval = 1.0/400.0;
+//  float interval = 1.0/800.0;
+  
+//  float interval = 1.0/1300.0; // 1293 at 85% CPU
+//  float interval = 1.0/2000.0; // 1350 at 90% CPU
+  //float interval = 1.0/2500.0; // 1404 at 90% CPU
+  
+  //float interval = 1.0/3000.0; // 1404 at 93% CPU
+  
+  //float interval = 1.0/5000.0; // 1404 at 93% CPU
+  
+  //float interval = 1.0/35000.0; // 1425 at 98% CPU
+  
+//  float interval = 1.0/50000.0; // 1491 at 98% CPU
+  
+  float interval = 1.0/100000.0; // 1500 at 98% CPU
+  
+  [NSTimer scheduledTimerWithTimeInterval:interval
+                                   target:self
+                                 selector:@selector(benchmarkTimer)
+                                 userInfo:nil
+                                  repeats:YES];
+
+  [NSTimer scheduledTimerWithTimeInterval:1.0
+                                   target:self
+                                 selector:@selector(secondElapsedTimer)
+                                 userInfo:nil
+                                  repeats:YES];
+  
+  return;
+}
+
+- (void) secondElapsedTimer {
+  NSLog(@"secondElapsedTimer : %8d bytes : aka %d MB", self.secondByteCounter, self.secondByteCounter/(1024*1024));
+  
+  self.secondByteCounter = 0;
+}
+
+- (void) benchmarkTimer {
+  //NSLog(@"benchmarkTimer");
+  
+  if (self.lz4CompressedData == nil) { assert(0); }
+  
+//  if (self.lz4CompressedData == nil) {
+//    return;
+//  }
+
+  int numDecompressed = LZ4_decompress_fast((const char*)self.lz4CompressedData.bytes, (char*)self.lz4DecompressedData.mutableBytes, (int)self.lz4DecompressedData.length);
+
+  assert(numDecompressed == (int)self.lz4CompressedData.length);
+  
+  self.secondByteCounter += (int)self.lz4DecompressedData.length;
+  
   return;
 }
 
 @end
+
