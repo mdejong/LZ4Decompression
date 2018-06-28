@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C67A30F20E3430900910871 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C67A30E20E3430900910871 /* AppDelegate.m */; };
-		3C67A31220E3430900910871 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3C67A31120E3430900910871 /* ViewController.mm */; };
+		3C67A31220E3430900910871 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C67A31120E3430900910871 /* ViewController.m */; };
 		3C67A31520E3430900910871 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C67A31320E3430900910871 /* Main.storyboard */; };
 		3C67A31720E3430F00910871 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C67A31620E3430F00910871 /* Assets.xcassets */; };
 		3C67A31A20E3430F00910871 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C67A31820E3430F00910871 /* LaunchScreen.storyboard */; };
@@ -18,6 +18,7 @@
 		3C67A33020E345CD00910871 /* xxhash.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C67A32920E345CC00910871 /* xxhash.c */; };
 		3C67A33120E345CD00910871 /* lz4.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C67A32C20E345CC00910871 /* lz4.c */; };
 		3C67A33320E3493200910871 /* DumpDeltaInputToHuffman.bytes in Resources */ = {isa = PBXBuildFile; fileRef = 3C67A33220E3493200910871 /* DumpDeltaInputToHuffman.bytes */; };
+		3CC06EED20E477ED0017ED68 /* LZ4SrcDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EEC20E477EC0017ED68 /* LZ4SrcDriver.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +26,7 @@
 		3C67A30D20E3430900910871 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3C67A30E20E3430900910871 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		3C67A31020E3430900910871 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		3C67A31120E3430900910871 /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
+		3C67A31120E3430900910871 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3C67A31420E3430900910871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C67A31620E3430F00910871 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C67A31920E3430F00910871 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -42,6 +43,9 @@
 		3C67A32C20E345CC00910871 /* lz4.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lz4.c; sourceTree = "<group>"; };
 		3C67A32D20E345CC00910871 /* lz4frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4frame.h; sourceTree = "<group>"; };
 		3C67A33220E3493200910871 /* DumpDeltaInputToHuffman.bytes */ = {isa = PBXFileReference; lastKnownFileType = file; path = DumpDeltaInputToHuffman.bytes; sourceTree = "<group>"; };
+		3CC06EEA20E476660017ED68 /* CompressionDriver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompressionDriver.h; sourceTree = "<group>"; };
+		3CC06EEB20E477740017ED68 /* LZ4SrcDriver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LZ4SrcDriver.h; sourceTree = "<group>"; };
+		3CC06EEC20E477EC0017ED68 /* LZ4SrcDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LZ4SrcDriver.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +82,11 @@
 				3C67A30D20E3430900910871 /* AppDelegate.h */,
 				3C67A30E20E3430900910871 /* AppDelegate.m */,
 				3C67A33220E3493200910871 /* DumpDeltaInputToHuffman.bytes */,
+				3CC06EEA20E476660017ED68 /* CompressionDriver.h */,
+				3CC06EEB20E477740017ED68 /* LZ4SrcDriver.h */,
+				3CC06EEC20E477EC0017ED68 /* LZ4SrcDriver.mm */,
 				3C67A31020E3430900910871 /* ViewController.h */,
-				3C67A31120E3430900910871 /* ViewController.mm */,
+				3C67A31120E3430900910871 /* ViewController.m */,
 				3C67A31320E3430900910871 /* Main.storyboard */,
 				3C67A31620E3430F00910871 /* Assets.xcassets */,
 				3C67A31820E3430F00910871 /* LaunchScreen.storyboard */,
@@ -178,10 +185,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C67A33120E345CD00910871 /* lz4.c in Sources */,
-				3C67A31220E3430900910871 /* ViewController.mm in Sources */,
+				3C67A31220E3430900910871 /* ViewController.m in Sources */,
 				3C67A33020E345CD00910871 /* xxhash.c in Sources */,
 				3C67A32F20E345CD00910871 /* lz4frame.c in Sources */,
 				3C67A32E20E345CD00910871 /* lz4hc.c in Sources */,
+				3CC06EED20E477ED0017ED68 /* LZ4SrcDriver.mm in Sources */,
 				3C67A31D20E3430F00910871 /* main.m in Sources */,
 				3C67A30F20E3430900910871 /* AppDelegate.m in Sources */,
 			);

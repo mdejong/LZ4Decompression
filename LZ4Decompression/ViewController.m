@@ -1,5 +1,5 @@
 //
-//  ViewController.mm
+//  ViewController.m
 //  LZ4Decompression
 //
 //  Created by Mo DeJong on 6/26/18.
@@ -8,67 +8,18 @@
 
 #import "ViewController.h"
 
-#include <vector>
-
-#define LZ4_DISABLE_DEPRECATE_WARNINGS
-
-#include "lz4.h"
-#include "lz4hc.h"
-
-using namespace std;
-
-// Compress vector with lz4 HC and return a vector that contains
-// the compressed bytes
-
-static inline
-vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
-  void *inDataPtr = (void *) inBytes.data();
-  size_t srcSize = inBytes.size();
-  
-  size_t decompressionBufferSize = srcSize;
-  
-  if (decompressionBufferSize < (4096*4)) {
-    decompressionBufferSize = (4096*4);
-  }
-  
-  vector<uint8_t> compressedVec;
-  compressedVec.resize(decompressionBufferSize);
-  
-  void *dst = (void*) compressedVec.data();
-  size_t dstCapacity = compressedVec.size();
-  
-  clock_t startTime = clock();
-  
-  int comp = 9;
-  
-  // int LZ4_compress_HC(const char* src, char* dst, int srcSize, int dstCapacity, int compressionLevel)
-  
-  size_t compressedSize = LZ4_compress_HC((const char*) inDataPtr, (char*)dst, (int)srcSize, (int)dstCapacity, comp);
-  
-  if (compressedSize == 0) {
-    printf("compression error in LZ4_compressHC\n");
-    return vector<uint8_t>();
-  }
-  
-  clock_t endTime = clock();
-  clock_t deltaTime = endTime - startTime;
-  
-  float deltaSecs = ((float)deltaTime)/CLOCKS_PER_SEC;
-  
-  printf("LZ4 compression seconds %0.4f\n", deltaSecs);
-  
-  compressedVec.resize(compressedSize);
-  
-  return compressedVec;
-}
+#import "CompressionDriver.h"
+#import "LZ4SrcDriver.h"
 
 @interface ViewController ()
 
+@property (nonatomic, retain) id<CompressionDriver> driver;
+
 @property (nonatomic, retain) NSTimer *intervalTimer;
 
-@property (nonatomic, copy) NSData *lz4CompressedData;
-
-@property (nonatomic, retain) NSMutableData *lz4DecompressedData;
+@property (nonatomic, copy) NSData *unencodedData;
+@property (nonatomic, copy) NSData *compressedData;
+@property (nonatomic, retain) NSMutableData *decompressedData;
 
 @property (nonatomic, assign) int secondByteCounter;
 
@@ -113,20 +64,18 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
   NSData *unencodedData = [NSData dataWithContentsOfFile:resPath];
   NSAssert(unencodedData, @"data");
   
-  vector<uint8_t> inBytes;
-  inBytes.resize((int)unencodedData.length);
-  memcpy(inBytes.data(), unencodedData.bytes, unencodedData.length);
+  self.unencodedData = unencodedData;
   
-  vector<uint8_t> compressedVec = compressedWithLZ4HC(inBytes);
+  self.driver = [[LZ4SrcDriver alloc] init];
+  
+  self.compressedData = [self.driver compressData:unencodedData];
   
   if ((1)) {
-      NSLog(@"uncomp num bytes %8d", (int)inBytes.size());
-      NSLog(@"  comp num bytes %8d", (int)compressedVec.size());
+      NSLog(@"uncomp num bytes %8d", (int)unencodedData.length);
+      NSLog(@"  comp num bytes %8d", (int)self.compressedData.length);
   }
   
-  self.lz4CompressedData = [NSData dataWithBytes:compressedVec.data() length:compressedVec.size()];
-  
-  self.lz4DecompressedData = [NSMutableData dataWithLength:unencodedData.length];
+  self.decompressedData = [NSMutableData dataWithLength:unencodedData.length];
   
 //  self.numerator = 1;
 //  self.denominator = 30;
@@ -187,7 +136,7 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
 //    Denom     2500 : 1453326336 bytes : aka 1386 MB
 //    Denom     5000 : 1519386624 bytes : aka 1449 MB
 //    Denom    20000 : 1550843904 bytes : aka 1479 MB (90% CPU)
-//    Denom    50000 : 1560281088 bytes : aka 1488 MB
+//    Denom    50000 : 1560281088 bytes : aka 1488 MB (98% CPU)
 //    Denom    70000 : 1560281088 bytes : aka 1488 MB
 //    Denom   100000 : 1560281088 bytes : aka 1488 MB
     
@@ -207,11 +156,17 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
 - (void) benchmarkTimer {
   //NSLog(@"benchmarkTimer");
 
-  int numDecompressed = LZ4_decompress_fast((const char*)self.lz4CompressedData.bytes, (char*)self.lz4DecompressedData.mutableBytes, (int)self.lz4DecompressedData.length);
-
-  assert(numDecompressed == (int)self.lz4CompressedData.length);
+  BOOL worked = [self.driver decompressData:self.compressedData buffer:(char*)self.decompressedData.mutableBytes length:(int)self.decompressedData.length];
   
-  self.secondByteCounter += (int)self.lz4DecompressedData.length;
+  assert(worked == TRUE);
+  
+#if defined(DEBUG)
+  // Compare decoded bytes to original input bytes
+  int cmp = memcmp(self.unencodedData.bytes, self.decompressedData.mutableBytes, (int)self.decompressedData.length);
+  assert(cmp == 0);
+#endif // DEBUG
+  
+  self.secondByteCounter += (int)self.decompressedData.length;
   
   return;
 }
