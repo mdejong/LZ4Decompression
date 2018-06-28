@@ -102,6 +102,13 @@
   
   uint8_t *outBufferPtr = buffer;
   
+//#define DISPATCH_BLOCKS_GCD
+  
+#if defined(DISPATCH_BLOCKS_GCD)
+  dispatch_group_t group = dispatch_group_create();
+  dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
+#endif // DISPATCH_BLOCKS_GCD
+  
   for (int blocki = 0; blocki < numBlocks; blocki++ ) {
     int blockNumBytes = header[blocki];
     
@@ -110,22 +117,52 @@
       decompressedBlockSize = length - (blocki * HUF_BLOCKSIZE_MAX);
     }
     
-    size_t result = HUF_decompress(outBufferPtr, decompressedBlockSize,
-                                   (const void*)encodedDataPtr+blockStartOffset, (size_t)blockNumBytes);
+    const void * encodedBlock = encodedDataPtr + blockStartOffset;
+
+    // Block capture pointers that will be decoded
     
-    if (HUF_isError(result)) {
-      printf("Huff0 error : %s\n", HUF_getErrorName(result));
-      assert(0);
-    }
-    
+    void (^DecompressBlock)(void) = ^void (void)
+    {
+      size_t result = HUF_decompress(outBufferPtr, decompressedBlockSize,
+                                     encodedBlock, (size_t)blockNumBytes);
+      
+      if (HUF_isError(result)) {
+        printf("Huff0 error : %s\n", HUF_getErrorName(result));
+        assert(0);
+      }
+      
 #if defined(DEBUG)
-    assert(result == decompressedBlockSize);
+      assert(result == decompressedBlockSize);
 #endif // DEBUG
+    };
+    
+#if defined(DISPATCH_BLOCKS_GCD)
+//    if ((blocki % 2) == 0) {
+//      DecompressBlock();
+//    } else {
+//      // Send to secondary queue
+//
+//      dispatch_group_async(group, queue, ^{
+//        DecompressBlock();
+//      });
+//    }
+    
+    dispatch_group_async(group, queue, ^{
+      DecompressBlock();
+    });
+#else // DISPATCH_BLOCKS_GCD
+    DecompressBlock();
+#endif // DISPATCH_BLOCKS_GCD
     
     blockStartOffset += blockNumBytes;
     outBufferPtr += decompressedBlockSize;
   }
 
+#if defined(DISPATCH_BLOCKS_GCD)
+  dispatch_group_wait(group, DISPATCH_TIME_FOREVER);
+  //dispatch_release(group);
+#endif // DISPATCH_BLOCKS_GCD
+  
 #if defined(DEBUG)
   assert((int)(outBufferPtr - buffer) == length);
 #endif // DEBUG

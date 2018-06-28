@@ -89,11 +89,11 @@
   
   self.decompressedData = [NSMutableData dataWithLength:unencodedData.length];
   
-//  self.numerator = 1;
-//  self.denominator = 30;
-
   self.numerator = 1;
-  self.denominator = 60;
+  self.denominator = 30;
+
+//  self.numerator = 1;
+//  self.denominator = 60;
   
 //  self.numerator = 1;
 //  self.denominator = 100000;
@@ -208,11 +208,15 @@
 #if defined(DEBUG)
   memset(self.decompressedData.mutableBytes, 0, (int)self.decompressedData.length);
 #endif // DEBUG
+  
+  @autoreleasepool {
 
-  BOOL worked = [self.driver decompressData:self.compressedData buffer:(char*)self.decompressedData.mutableBytes length:(int)self.decompressedData.length];
+  BOOL worked = [self.driver decompressData:self.compressedData buffer:(uint8_t*)self.decompressedData.mutableBytes length:(int)self.decompressedData.length];
   
   assert(worked == TRUE);
   
+  }
+    
 #if defined(DEBUG)
   // Compare decoded bytes to original input bytes
   int cmp = memcmp(self.unencodedData.bytes, self.decompressedData.mutableBytes, (int)self.decompressedData.length);
