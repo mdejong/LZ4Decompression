@@ -9,6 +9,8 @@ __LZ4A__ : Normal Comp -1 option in Apple's lib compression. [libcompression](ht
 
 __FSE__ : compiled from bundled source code. [FiniteStateEntropy](https://github.com/Cyan4973/FiniteStateEntropy)
 
+__HUFF0__ : compiled from bundled source code. [FiniteStateEntropy](https://github.com/Cyan4973/FiniteStateEntropy)
+
 Benchmarks
 -------------------------
 
