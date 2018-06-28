@@ -67,7 +67,7 @@
   
   self.unencodedData = unencodedData;
   
-  if ((0)) {
+  if ((1)) {
     self.driver = [[LZ4SrcDriver alloc] init];
   } else {
     self.driver = [[LZ4AppleDriver alloc] init];
