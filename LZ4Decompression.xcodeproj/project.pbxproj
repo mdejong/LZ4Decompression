@@ -21,6 +21,16 @@
 		3CC06EED20E477ED0017ED68 /* LZ4SrcDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EEC20E477EC0017ED68 /* LZ4SrcDriver.mm */; };
 		3CC06EF020E47D480017ED68 /* LZ4AppleDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EEE20E47D470017ED68 /* LZ4AppleDriver.m */; };
 		3CC06EF320E47F2F0017ED68 /* NSData+LAMCompression.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EF120E47F2D0017ED68 /* NSData+LAMCompression.m */; };
+		3CC06F0820E498580017ED68 /* entropy_common.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EF820E498570017ED68 /* entropy_common.c */; };
+		3CC06F0920E498580017ED68 /* huf_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EF920E498570017ED68 /* huf_decompress.c */; };
+		3CC06F0A20E498580017ED68 /* fse_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EFC20E498570017ED68 /* fse_decompress.c */; };
+		3CC06F0B20E498580017ED68 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3CC06EFD20E498570017ED68 /* README.md */; };
+		3CC06F0C20E498580017ED68 /* debug.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EFE20E498570017ED68 /* debug.c */; };
+		3CC06F0D20E498580017ED68 /* hist.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EFF20E498570017ED68 /* hist.c */; };
+		3CC06F0E20E498580017ED68 /* huf_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F0520E498570017ED68 /* huf_compress.c */; };
+		3CC06F0F20E498580017ED68 /* fseU16.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F0620E498570017ED68 /* fseU16.c */; };
+		3CC06F1020E498580017ED68 /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F0720E498570017ED68 /* fse_compress.c */; };
+		3CC06F1320E498F20017ED68 /* FSEDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F1220E498F20017ED68 /* FSEDriver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +62,27 @@
 		3CC06EEF20E47D480017ED68 /* LZ4AppleDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZ4AppleDriver.h; sourceTree = "<group>"; };
 		3CC06EF120E47F2D0017ED68 /* NSData+LAMCompression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+LAMCompression.m"; sourceTree = "<group>"; };
 		3CC06EF220E47F2E0017ED68 /* NSData+LAMCompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+LAMCompression.h"; sourceTree = "<group>"; };
+		3CC06EF520E498570017ED68 /* hist.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hist.h; sourceTree = "<group>"; };
+		3CC06EF620E498570017ED68 /* debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = debug.h; sourceTree = "<group>"; };
+		3CC06EF720E498570017ED68 /* compiler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = compiler.h; sourceTree = "<group>"; };
+		3CC06EF820E498570017ED68 /* entropy_common.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = entropy_common.c; sourceTree = "<group>"; };
+		3CC06EF920E498570017ED68 /* huf_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_decompress.c; sourceTree = "<group>"; };
+		3CC06EFA20E498570017ED68 /* fseU16.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fseU16.h; sourceTree = "<group>"; };
+		3CC06EFB20E498570017ED68 /* error_private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_private.h; sourceTree = "<group>"; };
+		3CC06EFC20E498570017ED68 /* fse_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_decompress.c; sourceTree = "<group>"; };
+		3CC06EFD20E498570017ED68 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3CC06EFE20E498570017ED68 /* debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = debug.c; sourceTree = "<group>"; };
+		3CC06EFF20E498570017ED68 /* hist.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hist.c; sourceTree = "<group>"; };
+		3CC06F0020E498570017ED68 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		3CC06F0120E498570017ED68 /* huf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = huf.h; sourceTree = "<group>"; };
+		3CC06F0220E498570017ED68 /* mem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mem.h; sourceTree = "<group>"; };
+		3CC06F0320E498570017ED68 /* error_public.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = error_public.h; sourceTree = "<group>"; };
+		3CC06F0420E498570017ED68 /* fse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fse.h; sourceTree = "<group>"; };
+		3CC06F0520E498570017ED68 /* huf_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = huf_compress.c; sourceTree = "<group>"; };
+		3CC06F0620E498570017ED68 /* fseU16.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fseU16.c; sourceTree = "<group>"; };
+		3CC06F0720E498570017ED68 /* fse_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_compress.c; sourceTree = "<group>"; };
+		3CC06F1120E498EF0017ED68 /* FSEDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEDriver.h; sourceTree = "<group>"; };
+		3CC06F1220E498F20017ED68 /* FSEDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSEDriver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +115,7 @@
 		3C67A30C20E3430900910871 /* LZ4Decompression */ = {
 			isa = PBXGroup;
 			children = (
+				3CC06EF420E498570017ED68 /* FSE */,
 				3C67A32320E345CC00910871 /* lz4 */,
 				3C67A30D20E3430900910871 /* AppDelegate.h */,
 				3C67A30E20E3430900910871 /* AppDelegate.m */,
@@ -95,6 +127,8 @@
 				3CC06EF120E47F2D0017ED68 /* NSData+LAMCompression.m */,
 				3CC06EEF20E47D480017ED68 /* LZ4AppleDriver.h */,
 				3CC06EEE20E47D470017ED68 /* LZ4AppleDriver.m */,
+				3CC06F1120E498EF0017ED68 /* FSEDriver.h */,
+				3CC06F1220E498F20017ED68 /* FSEDriver.m */,
 				3C67A31020E3430900910871 /* ViewController.h */,
 				3C67A31120E3430900910871 /* ViewController.m */,
 				3C67A31320E3430900910871 /* Main.storyboard */,
@@ -121,6 +155,32 @@
 				3C67A32D20E345CC00910871 /* lz4frame.h */,
 			);
 			path = lz4;
+			sourceTree = "<group>";
+		};
+		3CC06EF420E498570017ED68 /* FSE */ = {
+			isa = PBXGroup;
+			children = (
+				3CC06EFD20E498570017ED68 /* README.md */,
+				3CC06EF520E498570017ED68 /* hist.h */,
+				3CC06EF620E498570017ED68 /* debug.h */,
+				3CC06EF720E498570017ED68 /* compiler.h */,
+				3CC06EF820E498570017ED68 /* entropy_common.c */,
+				3CC06EF920E498570017ED68 /* huf_decompress.c */,
+				3CC06EFA20E498570017ED68 /* fseU16.h */,
+				3CC06EFB20E498570017ED68 /* error_private.h */,
+				3CC06EFC20E498570017ED68 /* fse_decompress.c */,
+				3CC06EFE20E498570017ED68 /* debug.c */,
+				3CC06EFF20E498570017ED68 /* hist.c */,
+				3CC06F0020E498570017ED68 /* bitstream.h */,
+				3CC06F0120E498570017ED68 /* huf.h */,
+				3CC06F0220E498570017ED68 /* mem.h */,
+				3CC06F0320E498570017ED68 /* error_public.h */,
+				3CC06F0420E498570017ED68 /* fse.h */,
+				3CC06F0520E498570017ED68 /* huf_compress.c */,
+				3CC06F0620E498570017ED68 /* fseU16.c */,
+				3CC06F0720E498570017ED68 /* fse_compress.c */,
+			);
+			path = FSE;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +242,7 @@
 			files = (
 				3C67A31A20E3430F00910871 /* LaunchScreen.storyboard in Resources */,
 				3C67A31720E3430F00910871 /* Assets.xcassets in Resources */,
+				3CC06F0B20E498580017ED68 /* README.md in Resources */,
 				3C67A33320E3493200910871 /* DumpDeltaInputToHuffman.bytes in Resources */,
 				3C67A31520E3430900910871 /* Main.storyboard in Resources */,
 			);
@@ -194,15 +255,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CC06F0920E498580017ED68 /* huf_decompress.c in Sources */,
+				3CC06F0C20E498580017ED68 /* debug.c in Sources */,
 				3C67A33120E345CD00910871 /* lz4.c in Sources */,
 				3C67A31220E3430900910871 /* ViewController.m in Sources */,
+				3CC06F0A20E498580017ED68 /* fse_decompress.c in Sources */,
+				3CC06F0D20E498580017ED68 /* hist.c in Sources */,
 				3C67A33020E345CD00910871 /* xxhash.c in Sources */,
 				3C67A32F20E345CD00910871 /* lz4frame.c in Sources */,
+				3CC06F1020E498580017ED68 /* fse_compress.c in Sources */,
 				3CC06EF020E47D480017ED68 /* LZ4AppleDriver.m in Sources */,
 				3C67A32E20E345CD00910871 /* lz4hc.c in Sources */,
+				3CC06F0820E498580017ED68 /* entropy_common.c in Sources */,
 				3CC06EF320E47F2F0017ED68 /* NSData+LAMCompression.m in Sources */,
 				3CC06EED20E477ED0017ED68 /* LZ4SrcDriver.mm in Sources */,
+				3CC06F1320E498F20017ED68 /* FSEDriver.m in Sources */,
+				3CC06F0E20E498580017ED68 /* huf_compress.c in Sources */,
 				3C67A31D20E3430F00910871 /* main.m in Sources */,
+				3CC06F0F20E498580017ED68 /* fseU16.c in Sources */,
 				3C67A30F20E3430900910871 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

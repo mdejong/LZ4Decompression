@@ -11,6 +11,7 @@
 #import "CompressionDriver.h"
 #import "LZ4SrcDriver.h"
 #import "LZ4AppleDriver.h"
+#import "FSEDriver.h"
 
 @interface ViewController ()
 
@@ -67,10 +68,12 @@
   
   self.unencodedData = unencodedData;
   
-  if ((1)) {
+  if ((0)) {
     self.driver = [[LZ4SrcDriver alloc] init];
-  } else {
+  } else if ((0)) {
     self.driver = [[LZ4AppleDriver alloc] init];
+  } else {
+    self.driver = [[FSEDriver alloc] init];
   }
 
   self.compressedData = [self.driver compressData:unencodedData];
@@ -166,6 +169,13 @@
     //   comp num bytes  1938194
     //
     // Denom    50000 :    141557760 bytes : aka  135 MB
+    
+    // A9 with FSE src
+    //
+    // uncomp num bytes  3145728
+    //   comp num bytes  1920119
+    
+    // Denom     5000 :    317718528 bytes : aka  303 MB
     
     float interval = (float)self.numerator/(float)self.denominator;
     
