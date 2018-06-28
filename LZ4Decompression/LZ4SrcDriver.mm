@@ -91,7 +91,7 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
 
 // Decompress encodedData into buffer, returns TRUE on success and FALSE on failure
 
-- (BOOL) decompressData:(NSData*)encodedData buffer:(char*)buffer length:(int)length
+- (BOOL) decompressData:(NSData*)encodedData buffer:(uint8_t*)buffer length:(int)length
 {
   int numDecompressed = LZ4_decompress_fast((const char*)encodedData.bytes, (char*)buffer, (int)length);
   

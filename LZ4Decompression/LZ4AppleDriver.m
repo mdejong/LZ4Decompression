@@ -31,7 +31,7 @@
 
 // Decompress encodedData into buffer, returns TRUE on success and FALSE on failure
 
-- (BOOL) decompressData:(NSData*)encodedData buffer:(char*)buffer length:(int)length
+- (BOOL) decompressData:(NSData*)encodedData buffer:(uint8_t*)buffer length:(int)length
 {
   /*
   NSData *decoded = [encodedData lam_uncompressedDataUsingCompression:LAMCompressionLZ4];

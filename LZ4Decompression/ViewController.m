@@ -131,7 +131,7 @@
     self.denominator = [denomNum intValue];
     
     // A9
-    
+    //
 //    Denom       30 :   91226112 bytes : aka   90 MB (12% CPU)
 //    Denom       60 :  185597952 bytes : aka  177 MB (17% CPU)
 //    Denom      120 :  374341632 bytes : aka  357 MB
@@ -148,6 +148,24 @@
     // A9 : Apple LZ4 in libcompression
     
     // Denom    70000 :   1258291200 bytes : aka 1200 MB (98% CPU)
+    
+    // --------------
+    
+    // A9 with LZFSE
+    //
+    //
+    // uncomp num bytes  3145728
+    //   comp num bytes  1932854
+    //
+    // Denom      800 :    314572800 bytes : aka  300 MB
+    // Denom    50000 :    336592896 bytes : aka  321 MB
+
+    // A9 with zlib
+    //
+    // uncomp num bytes  3145728
+    //   comp num bytes  1938194
+    //
+    // Denom    50000 :    141557760 bytes : aka  135 MB
     
     float interval = (float)self.numerator/(float)self.denominator;
     
