@@ -64,11 +64,20 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
 
 @interface ViewController ()
 
+@property (nonatomic, retain) NSTimer *intervalTimer;
+
 @property (nonatomic, copy) NSData *lz4CompressedData;
 
 @property (nonatomic, retain) NSMutableData *lz4DecompressedData;
 
 @property (nonatomic, assign) int secondByteCounter;
+
+@property (nonatomic, assign) int numerator;
+@property (nonatomic, assign) int denominator;
+
+@property (nonatomic, retain) IBOutlet UILabel *fpsLabel;
+
+@property (nonatomic, retain) IBOutlet UILabel *mbLabel;
 
 @end
 
@@ -85,6 +94,9 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
                                  selector:@selector(benchmarkInitTimer)
                                  userInfo:nil
                                   repeats:NO];
+  
+  NSAssert(self.fpsLabel, @"fpsLabel");
+  NSAssert(self.mbLabel, @"mbLabel");
 }
 
 
@@ -140,9 +152,17 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
   
 //  float interval = 1.0/50000.0; // 1491 at 98% CPU
   
-  float interval = 1.0/100000.0; // 1500 at 98% CPU
+//  float interval = 1.0/100000.0; // 1500 at 98% CPU on A9
+
+//  self.numerator = 1;
+//  self.denominator = 30;
   
-  [NSTimer scheduledTimerWithTimeInterval:interval
+  self.numerator = 1;
+  self.denominator = 100000;
+  
+  float interval = (float)self.numerator/(float)self.denominator;
+  
+  self.intervalTimer = [NSTimer scheduledTimerWithTimeInterval:interval
                                    target:self
                                  selector:@selector(benchmarkTimer)
                                  userInfo:nil
@@ -160,17 +180,32 @@ vector<uint8_t> compressedWithLZ4HC(const vector<uint8_t> & inBytes) {
 - (void) secondElapsedTimer {
   NSLog(@"secondElapsedTimer : %8d bytes : aka %d MB", self.secondByteCounter, self.secondByteCounter/(1024*1024));
   
+  int megabytes = self.secondByteCounter/(1024*1024);
+  
+  self.fpsLabel.text = [NSString stringWithFormat:@"%d", self.denominator];
+  self.mbLabel.text = [NSString stringWithFormat:@"%d", megabytes];
+  
+  if ((0)) {
+    // Reschedule
+    [self.intervalTimer invalidate];
+    
+    self.numerator = 1;
+    self.denominator = 60;
+    
+    float interval = (float)self.numerator/(float)self.denominator;
+    
+    self.intervalTimer = [NSTimer scheduledTimerWithTimeInterval:interval
+                                                          target:self
+                                                        selector:@selector(benchmarkTimer)
+                                                        userInfo:nil
+                                                         repeats:YES];
+  }
+
   self.secondByteCounter = 0;
 }
 
 - (void) benchmarkTimer {
   //NSLog(@"benchmarkTimer");
-  
-  if (self.lz4CompressedData == nil) { assert(0); }
-  
-//  if (self.lz4CompressedData == nil) {
-//    return;
-//  }
 
   int numDecompressed = LZ4_decompress_fast((const char*)self.lz4CompressedData.bytes, (char*)self.lz4DecompressedData.mutableBytes, (int)self.lz4DecompressedData.length);
 
