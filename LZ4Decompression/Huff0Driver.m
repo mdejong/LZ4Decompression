@@ -118,11 +118,17 @@
       assert(0);
     }
     
+#if defined(DEBUG)
     assert(result == decompressedBlockSize);
+#endif // DEBUG
     
     blockStartOffset += blockNumBytes;
     outBufferPtr += decompressedBlockSize;
   }
+
+#if defined(DEBUG)
+  assert((int)(outBufferPtr - buffer) == length);
+#endif // DEBUG
   
   return TRUE;
 }
