@@ -31,6 +31,7 @@
 		3CC06F0F20E498580017ED68 /* fseU16.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F0620E498570017ED68 /* fseU16.c */; };
 		3CC06F1020E498580017ED68 /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F0720E498570017ED68 /* fse_compress.c */; };
 		3CC06F1320E498F20017ED68 /* FSEDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F1220E498F20017ED68 /* FSEDriver.m */; };
+		3CC06F1720E4D00F0017ED68 /* Huff0Driver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F1520E4D00E0017ED68 /* Huff0Driver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,8 @@
 		3CC06F1120E498EF0017ED68 /* FSEDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEDriver.h; sourceTree = "<group>"; };
 		3CC06F1220E498F20017ED68 /* FSEDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSEDriver.m; sourceTree = "<group>"; };
 		3CC06F1420E4C5370017ED68 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
+		3CC06F1520E4D00E0017ED68 /* Huff0Driver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Huff0Driver.m; sourceTree = "<group>"; };
+		3CC06F1620E4D00E0017ED68 /* Huff0Driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Huff0Driver.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +134,8 @@
 				3CC06EEE20E47D470017ED68 /* LZ4AppleDriver.m */,
 				3CC06F1120E498EF0017ED68 /* FSEDriver.h */,
 				3CC06F1220E498F20017ED68 /* FSEDriver.m */,
+				3CC06F1620E4D00E0017ED68 /* Huff0Driver.h */,
+				3CC06F1520E4D00E0017ED68 /* Huff0Driver.m */,
 				3C67A31020E3430900910871 /* ViewController.h */,
 				3C67A31120E3430900910871 /* ViewController.m */,
 				3C67A31320E3430900910871 /* Main.storyboard */,
@@ -274,6 +279,7 @@
 				3CC06F1320E498F20017ED68 /* FSEDriver.m in Sources */,
 				3CC06F0E20E498580017ED68 /* huf_compress.c in Sources */,
 				3C67A31D20E3430F00910871 /* main.m in Sources */,
+				3CC06F1720E4D00F0017ED68 /* Huff0Driver.m in Sources */,
 				3CC06F0F20E498580017ED68 /* fseU16.c in Sources */,
 				3C67A30F20E3430900910871 /* AppDelegate.m in Sources */,
 			);

@@ -12,6 +12,7 @@
 #import "LZ4SrcDriver.h"
 #import "LZ4AppleDriver.h"
 #import "FSEDriver.h"
+#import "Huff0Driver.h"
 
 @interface ViewController ()
 
@@ -72,8 +73,10 @@
     self.driver = [[LZ4SrcDriver alloc] init];
   } else if ((0)) {
     self.driver = [[LZ4AppleDriver alloc] init];
-  } else {
+  } else if ((0)) {
     self.driver = [[FSEDriver alloc] init];
+  } else {
+    self.driver = [[Huff0Driver alloc] init];
   }
 
   self.compressedData = [self.driver compressData:unencodedData];
