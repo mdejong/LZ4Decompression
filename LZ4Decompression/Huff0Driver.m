@@ -26,45 +26,103 @@
 
 - (NSData*) compressData:(NSData*)unencodedData
 {
-  // FIXME: break into blocks of HUF_BLOCKSIZE_MAX = 128 KB
-  
   int numBlocks = (int)unencodedData.length / HUF_BLOCKSIZE_MAX;
-  if ((unencodedData.length % HUF_BLOCKSIZE_MAX) > 0) {
+  if ((unencodedData.length % HUF_BLOCKSIZE_MAX) != 0) {
     numBlocks += 1;
   }
   
-  // Allocate a dst location as large as the src to handle a worst case, it should not be close.
+  NSMutableData *allCompressedBytes = [NSMutableData data];
   
-  size_t worstCompressedCaseSizeInBytes = HUF_compressBound(unencodedData.length);
+  NSMutableArray *mArrOfSizes = [NSMutableArray array];
   
-  NSMutableData *compressedBytes = [NSMutableData dataWithLength:worstCompressedCaseSizeInBytes];
-  
-  size_t compSize = HUF_compress((void*) compressedBytes.mutableBytes, (size_t)compressedBytes.length,
-                                     (const void*) unencodedData.bytes, (size_t)unencodedData.length);
-  
-  if (HUF_isError(compSize)) {
-    printf("Huff0 error : %s\n", HUF_getErrorName(compSize));
-    assert(0);
+  for ( int blocki = 0; blocki < numBlocks; blocki++ ) {
+    // Allocate a dst location as large as the src to handle a worst case, it should not be close.
+    
+    int blockSizeInBits = HUF_BLOCKSIZE_MAX;
+    if (blocki == (numBlocks - 1)) {
+      blockSizeInBits = (int)unencodedData.length - (HUF_BLOCKSIZE_MAX * blocki);
+    }
+    
+    uint8_t *inBytesPtr = (uint8_t *) unencodedData.bytes;
+    inBytesPtr += (HUF_BLOCKSIZE_MAX * blocki);
+    
+    size_t worstCompressedCaseSizeInBytes = HUF_compressBound(blockSizeInBits);
+    
+    NSMutableData *compressedBytes = [NSMutableData dataWithLength:worstCompressedCaseSizeInBytes];
+    
+    //NSLog(@"compress from %d to %d (%d bytes)", (HUF_BLOCKSIZE_MAX * blocki), (HUF_BLOCKSIZE_MAX * blocki)+blockSizeInBits, blockSizeInBits);
+    
+    size_t compSize = HUF_compress((void*) compressedBytes.mutableBytes, (size_t)compressedBytes.length,
+                                   (const void*) inBytesPtr, blockSizeInBits);
+    
+    if (HUF_isError(compSize)) {
+      printf("Huff0 error : %s\n", HUF_getErrorName(compSize));
+      assert(0);
+    }
+    
+    [compressedBytes setLength:compSize];
+    
+    [allCompressedBytes appendData:compressedBytes];
+    
+    //NSLog(@"compress block to %d bytes", (int)compSize);
+    
+    [mArrOfSizes addObject:@(compSize)];
   }
-  assert(compSize < compressedBytes.length);
   
-  [compressedBytes setLength:compSize];
+  // Finally append N block sizes to the binary data, the decoder can figure out how many
+  // there are from the input size
   
-  return compressedBytes;
+  for ( NSNumber *sizeNum in mArrOfSizes ) {
+    uint32_t blockSize = [sizeNum unsignedIntValue];
+    [allCompressedBytes appendBytes:&blockSize length:sizeof(uint32_t)];
+  }
+  
+  return allCompressedBytes;
 }
 
 // Decompress encodedData into buffer, returns TRUE on success and FALSE on failure
 
 - (BOOL) decompressData:(NSData*)encodedData buffer:(uint8_t*)buffer length:(int)length
 {
-  size_t result = HUF_decompress(buffer, length,
-                                       (const void*)encodedData.bytes, (size_t)encodedData.length);
+  // Break into blocks of compressed data using a table at the end of the input data.
+ 
+  int numBlocks = length / HUF_BLOCKSIZE_MAX;
+  if ((length % HUF_BLOCKSIZE_MAX) != 0) {
+    numBlocks += 1;
+  }
   
-  result = result;
+  uint8_t *encodedDataPtr = (uint8_t *) encodedData.bytes;
   
-  // HUF_isError(result)
+  int headerNumBytes = numBlocks * sizeof(uint32_t);
   
-//  assert(numDecompressed == (int)encodedData.length);
+  uint32_t header[numBlocks];
+  memcpy(&header[0], encodedDataPtr + (int)encodedData.length - headerNumBytes, headerNumBytes);
+  
+  int blockStartOffset = 0;
+  
+  uint8_t *outBufferPtr = buffer;
+  
+  for (int blocki = 0; blocki < numBlocks; blocki++ ) {
+    int blockNumBytes = header[blocki];
+    
+    int decompressedBlockSize = HUF_BLOCKSIZE_MAX;
+    if (blocki == (numBlocks - 1)) {
+      decompressedBlockSize = length - (blocki * HUF_BLOCKSIZE_MAX);
+    }
+    
+    size_t result = HUF_decompress(outBufferPtr, decompressedBlockSize,
+                                   (const void*)encodedDataPtr+blockStartOffset, (size_t)blockNumBytes);
+    
+    if (HUF_isError(result)) {
+      printf("Huff0 error : %s\n", HUF_getErrorName(result));
+      assert(0);
+    }
+    
+    assert(result == decompressedBlockSize);
+    
+    blockStartOffset += blockNumBytes;
+    outBufferPtr += decompressedBlockSize;
+  }
   
   return TRUE;
 }

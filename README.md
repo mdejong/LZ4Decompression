@@ -20,5 +20,6 @@ These results are for an Apple A9 processor (iPhone SE device) compiled with opt
 | LZ4   |  1.38  |  1500 MB/s    |
 | LZ4A  |  1.16  |  1200 MB/s    |
 | FSE   |  1.64  |   300 MB/s    |
+| HUFF0 |  1.71  |   510 MB/s    |
 
-The LZ4 HC option produces the fastest decompression time. The default lz4 compression available via the Apple provided API produced significantly worse compression in terms of size and it decompressed slower. The FSE codec produced very effective compression results but decompression speed was a little slow. Note that apple also provides a LZFSE and zlib compression option which produce about the same compression ratio except that Apple's LZFSE is slightly faster while the zlib is significantly slower.
+The LZ4 HC option produces the fastest decompression time. The default lz4 compression available via the Apple provided API produced significantly worse compression in terms of size and it decompressed slower. The FSE codec produced very effective compression results but decompression speed was a little slow. Note that apple also provides a LZFSE and zlib compression option which produce about the same compression ratio except that Apple's LZFSE is slightly faster while the zlib is significantly slower. The huff0 codec produces the most effective compression rate and decodes more quickly than FSE.

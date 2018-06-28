@@ -181,6 +181,14 @@
     
     // Denom     5000 :    317718528 bytes : aka  303 MB
     
+    // A9 with HUFF0 src
+    //
+    // uncomp num bytes  3145728
+    //   comp num bytes  1839452
+    
+    // Denom     5000 :    531628032 bytes : aka  510 MB
+
+    
     float interval = (float)self.numerator/(float)self.denominator;
     
     self.intervalTimer = [NSTimer scheduledTimerWithTimeInterval:interval
