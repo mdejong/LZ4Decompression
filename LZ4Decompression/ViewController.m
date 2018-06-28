@@ -10,6 +10,7 @@
 
 #import "CompressionDriver.h"
 #import "LZ4SrcDriver.h"
+#import "LZ4AppleDriver.h"
 
 @interface ViewController ()
 
@@ -66,8 +67,12 @@
   
   self.unencodedData = unencodedData;
   
-  self.driver = [[LZ4SrcDriver alloc] init];
-  
+  if ((0)) {
+    self.driver = [[LZ4SrcDriver alloc] init];
+  } else {
+    self.driver = [[LZ4AppleDriver alloc] init];
+  }
+
   self.compressedData = [self.driver compressData:unencodedData];
   
   if ((1)) {

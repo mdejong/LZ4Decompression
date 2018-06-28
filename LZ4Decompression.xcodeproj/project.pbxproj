@@ -19,6 +19,8 @@
 		3C67A33120E345CD00910871 /* lz4.c in Sources */ = {isa = PBXBuildFile; fileRef = 3C67A32C20E345CC00910871 /* lz4.c */; };
 		3C67A33320E3493200910871 /* DumpDeltaInputToHuffman.bytes in Resources */ = {isa = PBXBuildFile; fileRef = 3C67A33220E3493200910871 /* DumpDeltaInputToHuffman.bytes */; };
 		3CC06EED20E477ED0017ED68 /* LZ4SrcDriver.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EEC20E477EC0017ED68 /* LZ4SrcDriver.mm */; };
+		3CC06EF020E47D480017ED68 /* LZ4AppleDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EEE20E47D470017ED68 /* LZ4AppleDriver.m */; };
+		3CC06EF320E47F2F0017ED68 /* NSData+LAMCompression.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06EF120E47F2D0017ED68 /* NSData+LAMCompression.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +48,10 @@
 		3CC06EEA20E476660017ED68 /* CompressionDriver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CompressionDriver.h; sourceTree = "<group>"; };
 		3CC06EEB20E477740017ED68 /* LZ4SrcDriver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LZ4SrcDriver.h; sourceTree = "<group>"; };
 		3CC06EEC20E477EC0017ED68 /* LZ4SrcDriver.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LZ4SrcDriver.mm; sourceTree = "<group>"; };
+		3CC06EEE20E47D470017ED68 /* LZ4AppleDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LZ4AppleDriver.m; sourceTree = "<group>"; };
+		3CC06EEF20E47D480017ED68 /* LZ4AppleDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LZ4AppleDriver.h; sourceTree = "<group>"; };
+		3CC06EF120E47F2D0017ED68 /* NSData+LAMCompression.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+LAMCompression.m"; sourceTree = "<group>"; };
+		3CC06EF220E47F2E0017ED68 /* NSData+LAMCompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+LAMCompression.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +91,10 @@
 				3CC06EEA20E476660017ED68 /* CompressionDriver.h */,
 				3CC06EEB20E477740017ED68 /* LZ4SrcDriver.h */,
 				3CC06EEC20E477EC0017ED68 /* LZ4SrcDriver.mm */,
+				3CC06EF220E47F2E0017ED68 /* NSData+LAMCompression.h */,
+				3CC06EF120E47F2D0017ED68 /* NSData+LAMCompression.m */,
+				3CC06EEF20E47D480017ED68 /* LZ4AppleDriver.h */,
+				3CC06EEE20E47D470017ED68 /* LZ4AppleDriver.m */,
 				3C67A31020E3430900910871 /* ViewController.h */,
 				3C67A31120E3430900910871 /* ViewController.m */,
 				3C67A31320E3430900910871 /* Main.storyboard */,
@@ -188,7 +198,9 @@
 				3C67A31220E3430900910871 /* ViewController.m in Sources */,
 				3C67A33020E345CD00910871 /* xxhash.c in Sources */,
 				3C67A32F20E345CD00910871 /* lz4frame.c in Sources */,
+				3CC06EF020E47D480017ED68 /* LZ4AppleDriver.m in Sources */,
 				3C67A32E20E345CD00910871 /* lz4hc.c in Sources */,
+				3CC06EF320E47F2F0017ED68 /* NSData+LAMCompression.m in Sources */,
 				3CC06EED20E477ED0017ED68 /* LZ4SrcDriver.mm in Sources */,
 				3C67A31D20E3430F00910871 /* main.m in Sources */,
 				3C67A30F20E3430900910871 /* AppDelegate.m in Sources */,
