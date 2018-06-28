@@ -16,12 +16,16 @@ Benchmarks
 
 These results are for an Apple A9 processor (iPhone SE device) compiled with optimizations on. The original input file is a grayscale image processed with a simple SUB operation from one byte to the next with an uncompressed size 3145728 or 3.1 MB. This decompression MB rate indicates the maximum amount of data that can be decompressed per second at full CPU usage.
 
-| Codec | Comp   | Decompression |
-| ----- |:------:| -------------:|
-|       |        |               |
-| LZ4   |  1.38  |  1500 MB/s    |
-| LZ4A  |  1.16  |  1200 MB/s    |
-| FSE   |  1.64  |   300 MB/s    |
-| HUFF0 |  1.71  |   510 MB/s    |
+| Codec  | Comp   | Decompression |
+| ------ |:------:| -------------:|
+|        |        |               |
+| LZ4    |  1.38  |  1500 MB/s    |
+| LZ4A   |  1.16  |  1200 MB/s    |
+| FSE    |  1.64  |   300 MB/s    |
+| HUFF0  |  1.71  |   510 MB/s    |
+| HUFF0T |  1.71  |   920 MB/s    |
 
-The LZ4 HC option produces the fastest decompression time. The default lz4 compression available via the Apple provided API produced significantly worse compression in terms of size and it decompressed slower. The FSE codec produced very effective compression results but decompression speed was a little slow. Note that apple also provides a LZFSE and zlib compression option which produce about the same compression ratio except that Apple's LZFSE is slightly faster while the zlib is significantly slower. The huff0 codec produces the most effective compression rate and decodes more quickly than FSE.
+The LZ4 HC option produces the fastest decompression time. The default lz4 compression available via the Apple provided API produced significantly worse compression in terms of size and it decompressed slower. The FSE codec produced very effective compression results but decompression speed was a little slow. Note that apple also provides a LZFSE and zlib compression option which produce about the same compression ratio except that Apple's LZFSE is slightly faster while the zlib is significantly slower.
+
+The huff0 codec produces the most effective compression rate and decodes more quickly than FSE. When GCD threads are used (HUFF0T) then things become very interesting. Because huff0 decoding is split up block by block, the decoding process can be run on multiple threads. Since all 64 bit iOS devices have multiple CPU cores, this results in a very nice speedup, not quite 2x, but close. While other codecs could also be processed with multiple threads, the combination of high compression ratio and effect multiple CPU core performance indicates that huff0 is a strong choice.
+
