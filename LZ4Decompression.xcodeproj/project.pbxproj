@@ -48,7 +48,6 @@
 		3C67A32420E345CC00910871 /* xxhash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = xxhash.h; sourceTree = "<group>"; };
 		3C67A32520E345CC00910871 /* lz4hc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lz4hc.c; sourceTree = "<group>"; };
 		3C67A32620E345CC00910871 /* lz4frame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lz4frame.c; sourceTree = "<group>"; };
-		3C67A32720E345CC00910871 /* lz4opt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4opt.h; sourceTree = "<group>"; };
 		3C67A32820E345CC00910871 /* lz4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4.h; sourceTree = "<group>"; };
 		3C67A32920E345CC00910871 /* xxhash.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = xxhash.c; sourceTree = "<group>"; };
 		3C67A32A20E345CC00910871 /* lz4frame_static.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lz4frame_static.h; sourceTree = "<group>"; };
@@ -153,7 +152,6 @@
 				3C67A32420E345CC00910871 /* xxhash.h */,
 				3C67A32520E345CC00910871 /* lz4hc.c */,
 				3C67A32620E345CC00910871 /* lz4frame.c */,
-				3C67A32720E345CC00910871 /* lz4opt.h */,
 				3C67A32820E345CC00910871 /* lz4.h */,
 				3C67A32920E345CC00910871 /* xxhash.c */,
 				3C67A32A20E345CC00910871 /* lz4frame_static.h */,
