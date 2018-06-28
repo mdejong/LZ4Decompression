@@ -91,4 +91,8 @@ typedef NS_ENUM(NSUInteger, LAMCompression) {
  */
 - (NSData *)lam_uncompressedDataUsingCompression:(LAMCompression)compression;
 
+// Optimized decoding impl
+
+- (BOOL)lam_decompressionOneCall:(LAMCompression)compression buffer:(uint8_t*)buffer length:(NSUInteger)length;
+
 @end

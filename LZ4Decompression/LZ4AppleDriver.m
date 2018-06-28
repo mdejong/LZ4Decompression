@@ -33,9 +33,16 @@
 
 - (BOOL) decompressData:(NSData*)encodedData buffer:(char*)buffer length:(int)length
 {
+  /*
   NSData *decoded = [encodedData lam_uncompressedDataUsingCompression:LAMCompressionLZ4];
   memcpy(buffer, decoded.bytes, length);
   return TRUE;
+   */
+  
+  // Optimized no alloc and no second copy
+  
+  BOOL worked = [encodedData lam_decompressionOneCall:LAMCompressionLZ4 buffer:buffer length:length];
+  return worked;
 }
 
 @end

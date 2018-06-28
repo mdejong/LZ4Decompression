@@ -202,4 +202,100 @@ typedef NS_ENUM(NSUInteger, LAMCompressionOperation) {
 	return [outputData copy];
 }
 
+// Execute a decode operation with a single decode call, this method writes into
+// a buffer of the proper size with no allocations for speed reasons.
+
+- (BOOL)lam_decompressionOneCall:(LAMCompression)compression buffer:(uint8_t*)buffer length:(NSUInteger)length {
+  
+  NSAssert(compression == LAMCompressionLZ4  ||
+           compression == LAMCompressionZLIB ||
+           compression == LAMCompressionLZMA ||
+           compression == LAMCompressionLZFSE, @"Invalid compression type specified");
+  
+  if (self.length == 0) {
+    return TRUE;
+  }
+  
+  compression_stream stream;
+  compression_status status;
+  compression_stream_operation op;
+  compression_stream_flags flags;
+  compression_algorithm algorithm;
+  
+  switch (compression) {
+    case LAMCompressionLZ4:
+      algorithm = COMPRESSION_LZ4;
+      break;
+    case LAMCompressionLZFSE:
+      algorithm = COMPRESSION_LZFSE;
+      break;
+    case LAMCompressionLZMA:
+      algorithm = COMPRESSION_LZMA;
+      break;
+    case LAMCompressionZLIB:
+      algorithm = COMPRESSION_ZLIB;
+      break;
+    default:
+      return FALSE;
+      break;
+  }
+
+  op = COMPRESSION_STREAM_DECODE;
+  flags = 0;
+  
+  status = compression_stream_init(&stream, op, algorithm);
+  if (status == COMPRESSION_STATUS_ERROR) {
+    // an error occurred
+    return FALSE;
+  }
+  
+  // setup the stream's source
+  stream.src_ptr    = self.bytes;
+  stream.src_size   = self.length;
+  
+  // setup the stream's output buffer
+  // we use a temporary buffer to store data as it's compressed
+  size_t dstBufferSize = length;
+  uint8_t*dstBuffer    = (uint8_t*)buffer;
+  stream.dst_ptr       = dstBuffer;
+  stream.dst_size      = dstBufferSize;
+  
+  do {
+    status = compression_stream_process(&stream, flags);
+    
+    switch (status) {
+      case COMPRESSION_STATUS_OK:
+        // Going to call _process at least once more, so prepare for that
+        if (stream.dst_size == 0) {
+          // Output buffer full...
+          
+          // Write out to mutableData
+          //[outputData appendBytes:dstBuffer length:dstBufferSize];
+          
+          // Re-use dstBuffer
+          //stream.dst_ptr = dstBuffer;
+          //stream.dst_size = dstBufferSize;
+        }
+        break;
+        
+      case COMPRESSION_STATUS_END:
+        // We are done, just write out the output buffer if there's anything in it
+        //if (stream.dst_ptr > dstBuffer) {
+        //  [outputData appendBytes:dstBuffer length:stream.dst_ptr - dstBuffer];
+        //}
+        break;
+        
+      case COMPRESSION_STATUS_ERROR:
+        return FALSE;
+        
+      default:
+        break;
+    }
+  } while (status == COMPRESSION_STATUS_OK);
+  
+  compression_stream_destroy(&stream);
+  
+  return TRUE;
+}
+
 @end

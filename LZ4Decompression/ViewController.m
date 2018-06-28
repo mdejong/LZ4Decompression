@@ -145,6 +145,10 @@
 //    Denom    70000 : 1560281088 bytes : aka 1488 MB
 //    Denom   100000 : 1560281088 bytes : aka 1488 MB
     
+    // A9 : Apple LZ4 in libcompression
+    
+    // Denom    70000 :   1258291200 bytes : aka 1200 MB (98% CPU)
+    
     float interval = (float)self.numerator/(float)self.denominator;
     
     self.intervalTimer = [NSTimer scheduledTimerWithTimeInterval:interval
@@ -160,6 +164,10 @@
 
 - (void) benchmarkTimer {
   //NSLog(@"benchmarkTimer");
+  
+#if defined(DEBUG)
+  memset(self.decompressedData.mutableBytes, 0, (int)self.decompressedData.length);
+#endif // DEBUG
 
   BOOL worked = [self.driver decompressData:self.compressedData buffer:(char*)self.decompressedData.mutableBytes length:(int)self.decompressedData.length];
   
