@@ -187,7 +187,10 @@
     //   comp num bytes  1839452
     
     // Denom     5000 :    531628032 bytes : aka  510 MB
-
+    
+    // With GCD threads enabled
+    
+    // Denom  1000000 :    962592768 bytes : aka  918 MB
     
     float interval = (float)self.numerator/(float)self.denominator;
     

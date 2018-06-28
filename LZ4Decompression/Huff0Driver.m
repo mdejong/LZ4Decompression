@@ -102,7 +102,7 @@
   
   uint8_t *outBufferPtr = buffer;
   
-//#define DISPATCH_BLOCKS_GCD
+#define DISPATCH_BLOCKS_GCD
   
 #if defined(DISPATCH_BLOCKS_GCD)
   dispatch_group_t group = dispatch_group_create();
@@ -137,16 +137,6 @@
     };
     
 #if defined(DISPATCH_BLOCKS_GCD)
-//    if ((blocki % 2) == 0) {
-//      DecompressBlock();
-//    } else {
-//      // Send to secondary queue
-//
-//      dispatch_group_async(group, queue, ^{
-//        DecompressBlock();
-//      });
-//    }
-    
     dispatch_group_async(group, queue, ^{
       DecompressBlock();
     });
