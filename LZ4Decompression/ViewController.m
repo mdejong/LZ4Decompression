@@ -81,6 +81,7 @@
   if ((1)) {
       NSLog(@"uncomp num bytes %8d", (int)unencodedData.length);
       NSLog(@"  comp num bytes %8d", (int)self.compressedData.length);
+      NSLog(@"  comp ratio %.2f", (float)unencodedData.length/(int)self.compressedData.length);
   }
   
   self.decompressedData = [NSMutableData dataWithLength:unencodedData.length];

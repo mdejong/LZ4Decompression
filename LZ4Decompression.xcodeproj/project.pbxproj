@@ -83,6 +83,7 @@
 		3CC06F0720E498570017ED68 /* fse_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fse_compress.c; sourceTree = "<group>"; };
 		3CC06F1120E498EF0017ED68 /* FSEDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSEDriver.h; sourceTree = "<group>"; };
 		3CC06F1220E498F20017ED68 /* FSEDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSEDriver.m; sourceTree = "<group>"; };
+		3CC06F1420E4C5370017ED68 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +116,7 @@
 		3C67A30C20E3430900910871 /* LZ4Decompression */ = {
 			isa = PBXGroup;
 			children = (
+				3CC06F1420E4C5370017ED68 /* README.md */,
 				3CC06EF420E498570017ED68 /* FSE */,
 				3C67A32320E345CC00910871 /* lz4 */,
 				3C67A30D20E3430900910871 /* AppDelegate.h */,
