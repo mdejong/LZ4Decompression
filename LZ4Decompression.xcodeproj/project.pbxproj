@@ -32,6 +32,10 @@
 		3CC06F1020E498580017ED68 /* fse_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F0720E498570017ED68 /* fse_compress.c */; };
 		3CC06F1320E498F20017ED68 /* FSEDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F1220E498F20017ED68 /* FSEDriver.m */; };
 		3CC06F1720E4D00F0017ED68 /* Huff0Driver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F1520E4D00E0017ED68 /* Huff0Driver.m */; };
+		3CC06F3020E5AB470017ED68 /* lizard_frame.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F1E20E5AB470017ED68 /* lizard_frame.c */; };
+		3CC06F3120E5AB470017ED68 /* lizard_compress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F2120E5AB470017ED68 /* lizard_compress.c */; };
+		3CC06F3320E5AB470017ED68 /* lizard_decompress.c in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F2620E5AB470017ED68 /* lizard_decompress.c */; };
+		3CC06F3620E5AC9B0017ED68 /* LizardDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CC06F3420E5AC9A0017ED68 /* LizardDriver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +90,30 @@
 		3CC06F1420E4C5370017ED68 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		3CC06F1520E4D00E0017ED68 /* Huff0Driver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Huff0Driver.m; sourceTree = "<group>"; };
 		3CC06F1620E4D00E0017ED68 /* Huff0Driver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Huff0Driver.h; sourceTree = "<group>"; };
+		3CC06F1920E5AB470017ED68 /* lizard_compress_liz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_compress_liz.h; sourceTree = "<group>"; };
+		3CC06F1A20E5AB470017ED68 /* lizard_decompress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_decompress.h; sourceTree = "<group>"; };
+		3CC06F1B20E5AB470017ED68 /* lizard_parser_lowestprice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_lowestprice.h; sourceTree = "<group>"; };
+		3CC06F1C20E5AB470017ED68 /* lizard_parser_optimal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_optimal.h; sourceTree = "<group>"; };
+		3CC06F1D20E5AB470017ED68 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		3CC06F1E20E5AB470017ED68 /* lizard_frame.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lizard_frame.c; sourceTree = "<group>"; };
+		3CC06F1F20E5AB470017ED68 /* lizard_frame_static.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_frame_static.h; sourceTree = "<group>"; };
+		3CC06F2020E5AB470017ED68 /* lizard_decompress_lz4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_decompress_lz4.h; sourceTree = "<group>"; };
+		3CC06F2120E5AB470017ED68 /* lizard_compress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lizard_compress.c; sourceTree = "<group>"; };
+		3CC06F2220E5AB470017ED68 /* lizard_parser_pricefast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_pricefast.h; sourceTree = "<group>"; };
+		3CC06F2320E5AB470017ED68 /* lizard_parser_fastbig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_fastbig.h; sourceTree = "<group>"; };
+		3CC06F2420E5AB470017ED68 /* lizard_parser_fast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_fast.h; sourceTree = "<group>"; };
+		3CC06F2520E5AB470017ED68 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3CC06F2620E5AB470017ED68 /* lizard_decompress.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lizard_decompress.c; sourceTree = "<group>"; };
+		3CC06F2720E5AB470017ED68 /* lizard_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_common.h; sourceTree = "<group>"; };
+		3CC06F2820E5AB470017ED68 /* lizard_frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_frame.h; sourceTree = "<group>"; };
+		3CC06F2920E5AB470017ED68 /* lizard_decompress_liz.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_decompress_liz.h; sourceTree = "<group>"; };
+		3CC06F2A20E5AB470017ED68 /* lizard_compress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_compress.h; sourceTree = "<group>"; };
+		3CC06F2B20E5AB470017ED68 /* lizard_parser_fastsmall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_fastsmall.h; sourceTree = "<group>"; };
+		3CC06F2C20E5AB470017ED68 /* lizard_compress_lz4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_compress_lz4.h; sourceTree = "<group>"; };
+		3CC06F2D20E5AB470017ED68 /* lizard_parser_hashchain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_hashchain.h; sourceTree = "<group>"; };
+		3CC06F2E20E5AB470017ED68 /* lizard_parser_nochain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lizard_parser_nochain.h; sourceTree = "<group>"; };
+		3CC06F3420E5AC9A0017ED68 /* LizardDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LizardDriver.m; sourceTree = "<group>"; };
+		3CC06F3520E5AC9A0017ED68 /* LizardDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LizardDriver.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				3CC06F1420E4C5370017ED68 /* README.md */,
+				3CC06F1820E5AB470017ED68 /* lizard */,
 				3CC06EF420E498570017ED68 /* FSE */,
 				3C67A32320E345CC00910871 /* lz4 */,
 				3C67A30D20E3430900910871 /* AppDelegate.h */,
@@ -135,6 +164,8 @@
 				3CC06F1220E498F20017ED68 /* FSEDriver.m */,
 				3CC06F1620E4D00E0017ED68 /* Huff0Driver.h */,
 				3CC06F1520E4D00E0017ED68 /* Huff0Driver.m */,
+				3CC06F3520E5AC9A0017ED68 /* LizardDriver.h */,
+				3CC06F3420E5AC9A0017ED68 /* LizardDriver.m */,
 				3C67A31020E3430900910871 /* ViewController.h */,
 				3C67A31120E3430900910871 /* ViewController.m */,
 				3C67A31320E3430900910871 /* Main.storyboard */,
@@ -186,6 +217,35 @@
 				3CC06F0720E498570017ED68 /* fse_compress.c */,
 			);
 			path = FSE;
+			sourceTree = "<group>";
+		};
+		3CC06F1820E5AB470017ED68 /* lizard */ = {
+			isa = PBXGroup;
+			children = (
+				3CC06F2A20E5AB470017ED68 /* lizard_compress.h */,
+				3CC06F1A20E5AB470017ED68 /* lizard_decompress.h */,
+				3CC06F1920E5AB470017ED68 /* lizard_compress_liz.h */,
+				3CC06F1B20E5AB470017ED68 /* lizard_parser_lowestprice.h */,
+				3CC06F1C20E5AB470017ED68 /* lizard_parser_optimal.h */,
+				3CC06F1D20E5AB470017ED68 /* LICENSE */,
+				3CC06F1E20E5AB470017ED68 /* lizard_frame.c */,
+				3CC06F1F20E5AB470017ED68 /* lizard_frame_static.h */,
+				3CC06F2020E5AB470017ED68 /* lizard_decompress_lz4.h */,
+				3CC06F2120E5AB470017ED68 /* lizard_compress.c */,
+				3CC06F2220E5AB470017ED68 /* lizard_parser_pricefast.h */,
+				3CC06F2320E5AB470017ED68 /* lizard_parser_fastbig.h */,
+				3CC06F2420E5AB470017ED68 /* lizard_parser_fast.h */,
+				3CC06F2520E5AB470017ED68 /* README.md */,
+				3CC06F2620E5AB470017ED68 /* lizard_decompress.c */,
+				3CC06F2720E5AB470017ED68 /* lizard_common.h */,
+				3CC06F2820E5AB470017ED68 /* lizard_frame.h */,
+				3CC06F2920E5AB470017ED68 /* lizard_decompress_liz.h */,
+				3CC06F2B20E5AB470017ED68 /* lizard_parser_fastsmall.h */,
+				3CC06F2C20E5AB470017ED68 /* lizard_compress_lz4.h */,
+				3CC06F2D20E5AB470017ED68 /* lizard_parser_hashchain.h */,
+				3CC06F2E20E5AB470017ED68 /* lizard_parser_nochain.h */,
+			);
+			path = lizard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,19 +323,23 @@
 				3CC06F0920E498580017ED68 /* huf_decompress.c in Sources */,
 				3CC06F0C20E498580017ED68 /* debug.c in Sources */,
 				3C67A33120E345CD00910871 /* lz4.c in Sources */,
+				3CC06F3020E5AB470017ED68 /* lizard_frame.c in Sources */,
 				3C67A31220E3430900910871 /* ViewController.m in Sources */,
 				3CC06F0A20E498580017ED68 /* fse_decompress.c in Sources */,
 				3CC06F0D20E498580017ED68 /* hist.c in Sources */,
 				3C67A33020E345CD00910871 /* xxhash.c in Sources */,
 				3C67A32F20E345CD00910871 /* lz4frame.c in Sources */,
+				3CC06F3120E5AB470017ED68 /* lizard_compress.c in Sources */,
 				3CC06F1020E498580017ED68 /* fse_compress.c in Sources */,
 				3CC06EF020E47D480017ED68 /* LZ4AppleDriver.m in Sources */,
+				3CC06F3320E5AB470017ED68 /* lizard_decompress.c in Sources */,
 				3C67A32E20E345CD00910871 /* lz4hc.c in Sources */,
 				3CC06F0820E498580017ED68 /* entropy_common.c in Sources */,
 				3CC06EF320E47F2F0017ED68 /* NSData+LAMCompression.m in Sources */,
 				3CC06EED20E477ED0017ED68 /* LZ4SrcDriver.mm in Sources */,
 				3CC06F1320E498F20017ED68 /* FSEDriver.m in Sources */,
 				3CC06F0E20E498580017ED68 /* huf_compress.c in Sources */,
+				3CC06F3620E5AC9B0017ED68 /* LizardDriver.m in Sources */,
 				3C67A31D20E3430F00910871 /* main.m in Sources */,
 				3CC06F1720E4D00F0017ED68 /* Huff0Driver.m in Sources */,
 				3CC06F0F20E498580017ED68 /* fseU16.c in Sources */,
