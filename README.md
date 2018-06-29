@@ -11,6 +11,8 @@ __FSE__ : compiled from bundled source code. [FiniteStateEntropy](https://github
 
 __HUFF0__ : compiled from bundled source code. [FiniteStateEntropy](https://github.com/Cyan4973/FiniteStateEntropy)
 
+__LIZARD__ : compiled from bundled source code. [Lizard](https://github.com/inikep/lizard)
+
 Benchmarks
 -------------------------
 
@@ -24,8 +26,11 @@ These results are for an Apple A9 processor (iPhone SE device) compiled with opt
 | FSE    |  1.64  |   300 MB/s    |
 | HUFF0  |  1.71  |   510 MB/s    |
 | HUFF0T |  1.71  |   920 MB/s    |
+| LIZARD |  1.69  |   610 MB/s    |
 
 The LZ4 HC option produces the fastest decompression time. The default lz4 compression available via the Apple provided API produced significantly worse compression in terms of size and it decompressed slower. The FSE codec produced very effective compression results but decompression speed was a little slow. Note that Apple also provides LZFSE and zlib compression options which produce about the same compression ratio. Apple's LZFSE is slightly faster while the zlib option is significantly slower.
 
 The HUFF0 codec produces the most effective compression rate and decodes more quickly than FSE. When multiple threads are used for decoding (HUFF0T), things become very interesting. Because huff0 decoding is split up block by block, the decoding process can be run on multiple threads. Since all 64 bit iOS devices have multiple CPU cores, this results in a very nice speedup, not quite 2x, but close. While other codecs could also be processed with multiple threads, the combination of high compression ratio and fast multiple CPU core performance indicates that huff0 is a strong choice.
+
+The LIZARD results are interesting because lizard adapts lz4 to use huffman codes when encoding literals. These specific results made use of a 1 MB backward search size and GCD threading and the max compression level of 49. While LIZARD decode result is not as fast as HUFF0, this lz codec could still be optimal for input data that contains a lot of runs and backward matches since HUFF0 does entropy encoding only.
 

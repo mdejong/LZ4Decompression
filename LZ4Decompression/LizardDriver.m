@@ -15,6 +15,14 @@
 #include "lizard_compress.h"
 #include "lizard_decompress.h"
 
+//#define LIZARD_BLOCK_SIZE_SYMBOL LIZARD_BLOCK64K_SIZE // 64 KB = 0xFFFF
+//#define LIZARD_BLOCK_SIZE_SYMBOL LIZARD_BLOCK_SIZE    // 128 KB
+
+#define LIZARD_BLOCK_SIZE_SYMBOL (1024 * 1024) // 1 MB for each block
+//#define LIZARD_BLOCK_SIZE_SYMBOL (1024 * 1024)/2 // 1/2 MB for each block
+
+//#define LIZARD_BLOCK_SIZE_SYMBOL LIZARD_MAX_INPUT_SIZE // no threading when this large
+
 // LizardDriver
 
 @interface LizardDriver ()
@@ -27,8 +35,8 @@
 
 - (NSData*) compressData:(NSData*)unencodedData
 {
-  int numBlocks = (int)unencodedData.length / LIZARD_BLOCK64K_SIZE;
-  if ((unencodedData.length % LIZARD_BLOCK64K_SIZE) != 0) {
+  int numBlocks = (int)unencodedData.length / LIZARD_BLOCK_SIZE_SYMBOL;
+  if ((unencodedData.length % LIZARD_BLOCK_SIZE_SYMBOL) != 0) {
     numBlocks += 1;
   }
   
@@ -39,19 +47,21 @@
   for ( int blocki = 0; blocki < numBlocks; blocki++ ) {
     // Allocate a dst location as large as the src to handle a worst case, it should not be close.
     
-    int blockSizeInBits = LIZARD_BLOCK64K_SIZE;
+    int blockSizeInBits = LIZARD_BLOCK_SIZE_SYMBOL;
     if (blocki == (numBlocks - 1)) {
-      blockSizeInBits = (int)unencodedData.length - (LIZARD_BLOCK64K_SIZE * blocki);
+      blockSizeInBits = (int)unencodedData.length - (LIZARD_BLOCK_SIZE_SYMBOL * blocki);
     }
     
     uint8_t *inBytesPtr = (uint8_t *) unencodedData.bytes;
-    inBytesPtr += (LIZARD_BLOCK64K_SIZE * blocki);
+    inBytesPtr += (LIZARD_BLOCK_SIZE_SYMBOL * blocki);
     
     size_t worstCompressedCaseSizeInBytes = Lizard_compressBound(blockSizeInBits);
     
     NSMutableData *compressedBytes = [NSMutableData dataWithLength:worstCompressedCaseSizeInBytes];
     
-    //NSLog(@"compress from %d to %d (%d bytes)", (LIZARD_BLOCK64K_SIZE * blocki), (LIZARD_BLOCK64K_SIZE * blocki)+blockSizeInBits, blockSizeInBits);
+    //NSLog(@"compress from %d to %d (%d bytes)", (LIZARD_BLOCK_SIZE_SYMBOL * blocki), (LIZARD_BLOCK_SIZE_SYMBOL * blocki)+blockSizeInBits, blockSizeInBits);
+    
+    // Max huffman encoding setting
     
     size_t compSize = Lizard_compress((const void*) inBytesPtr, (void*) compressedBytes.mutableBytes, blockSizeInBits,
                                       (int)compressedBytes.length, 49);
@@ -86,8 +96,8 @@
 {
   // Break into blocks of compressed data using a table at the end of the input data.
  
-  int numBlocks = length / LIZARD_BLOCK64K_SIZE;
-  if ((length % LIZARD_BLOCK64K_SIZE) != 0) {
+  int numBlocks = length / LIZARD_BLOCK_SIZE_SYMBOL;
+  if ((length % LIZARD_BLOCK_SIZE_SYMBOL) != 0) {
     numBlocks += 1;
   }
   
@@ -102,7 +112,7 @@
   
   uint8_t *outBufferPtr = buffer;
   
-//#define DISPATCH_BLOCKS_GCD
+#define DISPATCH_BLOCKS_GCD
   
 #if defined(DISPATCH_BLOCKS_GCD)
   dispatch_group_t group = dispatch_group_create();
@@ -112,9 +122,9 @@
   for (int blocki = 0; blocki < numBlocks; blocki++ ) {
     int blockNumBytes = header[blocki];
     
-    int decompressedBlockSize = LIZARD_BLOCK64K_SIZE;
+    int decompressedBlockSize = LIZARD_BLOCK_SIZE_SYMBOL;
     if (blocki == (numBlocks - 1)) {
-      decompressedBlockSize = length - (blocki * LIZARD_BLOCK64K_SIZE);
+      decompressedBlockSize = length - (blocki * LIZARD_BLOCK_SIZE_SYMBOL);
     }
     
     const void * encodedBlock = encodedDataPtr + blockStartOffset;
