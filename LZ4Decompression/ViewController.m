@@ -15,6 +15,8 @@
 #import "Huff0Driver.h"
 #import "LizardDriver.h"
 
+#import "PixelUtil.h"
+
 @interface ViewController ()
 
 @property (nonatomic, retain) id<CompressionDriver> driver;
@@ -65,16 +67,34 @@
   NSString *resPath = [[NSBundle mainBundle] pathForResource:resFilename ofType:nil];;
   NSAssert(resPath, @"resource not found \"%@\"", resFilename);
   
-  NSData *unencodedData = [NSData dataWithContentsOfFile:resPath];
-  NSAssert(unencodedData, @"data");
-  
-  self.unencodedData = unencodedData;
+  self.unencodedData = [NSData dataWithContentsOfFile:resPath];
+  NSAssert(self.unencodedData, @"data");
   
   if ((0)) {
     self.driver = [[LZ4SrcDriver alloc] init];
   } else if ((0)) {
     self.driver = [[LZ4AppleDriver alloc] init];
-  } else if ((0)) {
+  } else if ((1)) {
+    // Apply zigzag to represent negative numbers as positive values
+    // since this FSE encoding expects values (0 -> 255)
+    
+    NSMutableData *zigZagData = [NSMutableData dataWithLength:self.unencodedData.length];
+    
+    const uint8_t *inBytesPtr = (uint8_t *) self.unencodedData.bytes;
+    uint8_t *outBytesPtr = (uint8_t *) zigZagData.mutableBytes;
+    
+    for ( int i = 0; i < zigZagData.length; i++ ) {
+      uint8_t bVal = inBytesPtr[i];
+      int sVal = bVal;
+      bVal = pixelpack_int8_to_offset_uint8(sVal);
+      outBytesPtr[i] = bVal;
+    }
+    
+    NSAssert(zigZagData.length == self.unencodedData.length, @"length");
+    self.unencodedData = zigZagData;
+    
+    // Now FSE can be applied to negative numbers in dist
+    
     self.driver = [[FSEDriver alloc] init];
   } else if ((0)) {
     self.driver = [[Huff0Driver alloc] init];
@@ -82,15 +102,15 @@
     self.driver = [[LizardDriver alloc] init];
   }
 
-  self.compressedData = [self.driver compressData:unencodedData];
+  self.compressedData = [self.driver compressData:self.unencodedData];
   
   if ((1)) {
-      NSLog(@"uncomp num bytes %8d", (int)unencodedData.length);
+      NSLog(@"uncomp num bytes %8d", (int)self.unencodedData.length);
       NSLog(@"  comp num bytes %8d", (int)self.compressedData.length);
-      NSLog(@"  comp ratio %.2f", (float)unencodedData.length/(int)self.compressedData.length);
+      NSLog(@"  comp ratio %.2f", (float)self.unencodedData.length/(int)self.compressedData.length);
   }
   
-  self.decompressedData = [NSMutableData dataWithLength:unencodedData.length];
+  self.decompressedData = [NSMutableData dataWithLength:self.unencodedData.length];
   
   self.numerator = 1;
   self.denominator = 30;
@@ -235,4 +255,3 @@
 }
 
 @end
-

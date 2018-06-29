@@ -39,6 +39,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3C54019020E6116400077A75 /* PixelUtil.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PixelUtil.h; sourceTree = "<group>"; };
 		3C67A30A20E3430900910871 /* LZ4Decompression.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LZ4Decompression.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C67A30D20E3430900910871 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3C67A30E20E3430900910871 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -152,6 +153,7 @@
 				3C67A32320E345CC00910871 /* lz4 */,
 				3C67A30D20E3430900910871 /* AppDelegate.h */,
 				3C67A30E20E3430900910871 /* AppDelegate.m */,
+				3C54019020E6116400077A75 /* PixelUtil.h */,
 				3C67A33220E3493200910871 /* DumpDeltaInputToHuffman.bytes */,
 				3CC06EEA20E476660017ED68 /* CompressionDriver.h */,
 				3CC06EEB20E477740017ED68 /* LZ4SrcDriver.h */,
