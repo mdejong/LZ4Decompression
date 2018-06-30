@@ -14,6 +14,13 @@
 
 #include "huf.h"
 
+#define HUFF_BLOCK_SIZE_SYMBOL HUF_BLOCKSIZE_MAX // best decode performance
+//#define HUFF_BLOCK_SIZE_SYMBOL (HUF_BLOCKSIZE_MAX/2)
+//#define HUFF_BLOCK_SIZE_SYMBOL (HUF_BLOCKSIZE_MAX/4)
+//#define HUFF_BLOCK_SIZE_SYMBOL (HUF_BLOCKSIZE_MAX/8)
+//#define HUFF_BLOCK_SIZE_SYMBOL (HUF_BLOCKSIZE_MAX/16) // best comp 1.75, but peer decode performance
+//#define HUFF_BLOCK_SIZE_SYMBOL (HUF_BLOCKSIZE_MAX/32)
+
 // Huff0Driver
 
 @interface Huff0Driver ()
@@ -26,8 +33,8 @@
 
 - (NSData*) compressData:(NSData*)unencodedData
 {
-  int numBlocks = (int)unencodedData.length / HUF_BLOCKSIZE_MAX;
-  if ((unencodedData.length % HUF_BLOCKSIZE_MAX) != 0) {
+  int numBlocks = (int)unencodedData.length / HUFF_BLOCK_SIZE_SYMBOL;
+  if ((unencodedData.length % HUFF_BLOCK_SIZE_SYMBOL) != 0) {
     numBlocks += 1;
   }
   
@@ -38,19 +45,19 @@
   for ( int blocki = 0; blocki < numBlocks; blocki++ ) {
     // Allocate a dst location as large as the src to handle a worst case, it should not be close.
     
-    int blockSizeInBits = HUF_BLOCKSIZE_MAX;
+    int blockSizeInBits = HUFF_BLOCK_SIZE_SYMBOL;
     if (blocki == (numBlocks - 1)) {
-      blockSizeInBits = (int)unencodedData.length - (HUF_BLOCKSIZE_MAX * blocki);
+      blockSizeInBits = (int)unencodedData.length - (HUFF_BLOCK_SIZE_SYMBOL * blocki);
     }
     
     uint8_t *inBytesPtr = (uint8_t *) unencodedData.bytes;
-    inBytesPtr += (HUF_BLOCKSIZE_MAX * blocki);
+    inBytesPtr += (HUFF_BLOCK_SIZE_SYMBOL * blocki);
     
     size_t worstCompressedCaseSizeInBytes = HUF_compressBound(blockSizeInBits);
     
     NSMutableData *compressedBytes = [NSMutableData dataWithLength:worstCompressedCaseSizeInBytes];
     
-    //NSLog(@"compress from %d to %d (%d bytes)", (HUF_BLOCKSIZE_MAX * blocki), (HUF_BLOCKSIZE_MAX * blocki)+blockSizeInBits, blockSizeInBits);
+    //NSLog(@"compress from %d to %d (%d bytes)", (HUFF_BLOCK_SIZE_SYMBOL * blocki), (HUFF_BLOCK_SIZE_SYMBOL * blocki)+blockSizeInBits, blockSizeInBits);
     
     size_t compSize = HUF_compress((void*) compressedBytes.mutableBytes, (size_t)compressedBytes.length,
                                    (const void*) inBytesPtr, blockSizeInBits);
@@ -86,8 +93,8 @@
 {
   // Break into blocks of compressed data using a table at the end of the input data.
  
-  int numBlocks = length / HUF_BLOCKSIZE_MAX;
-  if ((length % HUF_BLOCKSIZE_MAX) != 0) {
+  int numBlocks = length / HUFF_BLOCK_SIZE_SYMBOL;
+  if ((length % HUFF_BLOCK_SIZE_SYMBOL) != 0) {
     numBlocks += 1;
   }
   
@@ -112,9 +119,9 @@
   for (int blocki = 0; blocki < numBlocks; blocki++ ) {
     int blockNumBytes = header[blocki];
     
-    int decompressedBlockSize = HUF_BLOCKSIZE_MAX;
+    int decompressedBlockSize = HUFF_BLOCK_SIZE_SYMBOL;
     if (blocki == (numBlocks - 1)) {
-      decompressedBlockSize = length - (blocki * HUF_BLOCKSIZE_MAX);
+      decompressedBlockSize = length - (blocki * HUFF_BLOCK_SIZE_SYMBOL);
     }
     
     const void * encodedBlock = encodedDataPtr + blockStartOffset;
