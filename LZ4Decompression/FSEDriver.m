@@ -14,7 +14,19 @@
 
 #include "fse.h"
 
-#define FSE_BLOCK_SIZE_SYMBOL (128 * 1024)
+#define FSE_BLOCK_SIZE_SYMBOL_MAX (128 * 1024)
+
+//#define FSE_BLOCK_SIZE_SYMBOL (FSE_BLOCK_SIZE_SYMBOL_MAX * 2) // 460 MB
+//#define FSE_BLOCK_SIZE_SYMBOL (FSE_BLOCK_SIZE_SYMBOL_MAX * 4) // 460 MB
+//#define FSE_BLOCK_SIZE_SYMBOL (FSE_BLOCK_SIZE_SYMBOL_MAX * 8) // 360 MB
+
+//#define FSE_BLOCK_SIZE_SYMBOL (FSE_BLOCK_SIZE_SYMBOL_MAX/2) // 440 MB
+//#define FSE_BLOCK_SIZE_SYMBOL (FSE_BLOCK_SIZE_SYMBOL_MAX/4) // 430 MB
+//#define FSE_BLOCK_SIZE_SYMBOL (FSE_BLOCK_SIZE_SYMBOL_MAX/8)   // 360 MB
+
+// This size seems to be optimal for both compression performance and decoding time.
+
+#define FSE_BLOCK_SIZE_SYMBOL FSE_BLOCK_SIZE_SYMBOL_MAX // 540 MB
 
 // FSEDriver
 
