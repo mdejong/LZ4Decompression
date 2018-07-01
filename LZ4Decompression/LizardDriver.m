@@ -18,8 +18,17 @@
 //#define LIZARD_BLOCK_SIZE_SYMBOL LIZARD_BLOCK64K_SIZE // 64 KB = 0xFFFF
 //#define LIZARD_BLOCK_SIZE_SYMBOL LIZARD_BLOCK_SIZE    // 128 KB
 
-#define LIZARD_BLOCK_SIZE_SYMBOL (1024 * 1024) // 1 MB for each block
-//#define LIZARD_BLOCK_SIZE_SYMBOL (1024 * 1024)/2 // 1/2 MB for each block
+// 2   MB buffer : encoded 1818345 : 1.73 : 730 MB decode speed
+// 1   MB buffer : encoded 1820560 : 1.73 : 620 MB decode speed
+// 1/2 MB buffer : encoded 1824727 : 1.72 : 745 MB decode speed
+// 1/4 MB buffer : encoded 1833097 : 1.72 : 720 MB decode speed
+// 1/8 MB buffer : encoded 1849761 : 1.70 : 675 MB decode speed
+
+//#define LIZARD_BLOCK_SIZE_SYMBOL ((1024 * 1024) * 2)
+//#define LIZARD_BLOCK_SIZE_SYMBOL (1024 * 1024)
+#define LIZARD_BLOCK_SIZE_SYMBOL ((1024 * 1024) / 2)
+//#define LIZARD_BLOCK_SIZE_SYMBOL ((1024 * 1024) / 4)
+//#define LIZARD_BLOCK_SIZE_SYMBOL ((1024 * 1024) / 8)
 
 //#define LIZARD_BLOCK_SIZE_SYMBOL LIZARD_MAX_INPUT_SIZE // no threading when this large
 
