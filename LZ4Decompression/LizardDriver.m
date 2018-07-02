@@ -72,6 +72,12 @@
     
     // Max huffman encoding setting
     
+    // 29 : 18% CPU : 1.39
+    // 30 : 37% CPU : 1.46 (like lz4)
+    // 35 : 46% CPU : 1.66
+    // 36 : 39% CPU : 1.64
+    // 39 : 31% CPU : 1.64 (fast enough on A9)
+    
     size_t compSize = Lizard_compress((const void*) inBytesPtr, (void*) compressedBytes.mutableBytes, blockSizeInBits,
                                       (int)compressedBytes.length, 49);
     
